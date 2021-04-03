@@ -6,6 +6,9 @@
   background-color: white;
 
   .nav-item {
+    &:hover {
+      background-color: lightgray;
+    }
     flex-grow: 1;
     text-align: center;
     border-bottom: 1px solid lightgray;
