@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  strapiApiUrl: "https://ktg-wiffleball-strapi.herokuapp.com"
+  strapiApiUrl: "http://localhost:4001"
 };
 
 /*
