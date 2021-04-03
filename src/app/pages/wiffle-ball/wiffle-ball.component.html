@@ -1,0 +1,13 @@
+<ul class="nav" [ngClass]="{'nav-mobile': isMobile, 'nav-desktop': !isMobile }">
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/wiffle-ball/details" routerLinkActive="active">Details</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/wiffle-ball/rules" routerLinkActive="active">Rules</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/wiffle-ball/register" routerLinkActive="active">Register</a>
+  </li>
+</ul>
+<router-outlet></router-outlet>
+

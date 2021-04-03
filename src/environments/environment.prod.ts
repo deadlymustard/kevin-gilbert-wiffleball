@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  strapiApiUrl: "https://ktg-wiffleball-strapi.herokuapp.com"
 };

@@ -1,10 +1,39 @@
+import { WiffleBallRegisterComponent } from './pages/wiffle-ball-register/wiffle-ball-register.component';
+import { WiffleBallRulesComponent } from './pages/wiffle-ball-rules/wiffle-ball-rules.component';
+import { WiffleBallDetailsComponent } from './pages/wiffle-ball-details/wiffle-ball-details.component';
+import { BingoNightComponent } from './pages/bingo-night/bingo-night.component';
+import { WiffleBallComponent } from './pages/wiffle-ball/wiffle-ball.component';
+import { FundraisersComponent } from './pages/fundraisers/fundraisers.component';
+import { DonateComponent } from './pages/donate/donate.component';
+import { AboutComponent } from './pages/about/about.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: AboutComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'donate', component: DonateComponent },
+  { path: 'fundraisers', component: FundraisersComponent },
+  {
+    path: "wiffle-ball",
+    redirectTo: "wiffle-ball/details"
+  },
+  {
+    path: 'wiffle-ball',
+    component: WiffleBallComponent,
+    children: [
+      { path: 'details', component: WiffleBallDetailsComponent},
+      { path: 'rules', component: WiffleBallRulesComponent},
+      { path: 'register', component: WiffleBallRegisterComponent}
+    ]
+  },
+  { path: 'bingo-night', component: BingoNightComponent },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabled'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,0 +1,88 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+@keyframes animatedBackground {
+	0% { background-position: 0 0; }
+  50% { background-position: 100% 50%;}
+}
+
+.navbar-splash {
+  display: flex;
+  width: 100%;
+  background: url("../../assets/images/baseball.jpeg") no-repeat;
+  background-position: 0px 0px;
+	background-repeat: repeat-x;
+  background-size: 110%;
+  align-items: center;
+  justify-content: center;
+  animation-direction: alternate-reverse;
+  animation: animatedBackground 60s ease-in-out infinite;
+
+
+  @include media-breakpoint-up(md) {
+    height: 250px;
+  }
+  @include media-breakpoint-down(md) {
+    height: 150px;
+  }
+
+  img {
+    z-index: 100;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 150px;
+      width: 275px;
+    }
+    @include media-breakpoint-down(md) {
+      margin-top: 50px;
+      width: 150px;
+    }
+  }
+}
+
+.navbar {
+  border-bottom: 5px solid #87cefa;
+  font-family: 'Lato', sans-serif;
+  font-size: 13pt;
+
+  @include media-breakpoint-up(md) {
+    border-top: 5px solid white;
+    .navbar-nav {
+      min-width: 30%;
+      .nav-item:not(:last-child) {
+        margin-right: 10px;
+     }
+    }
+    .nav-left {
+      display: flex;
+      place-content: flex-end;
+    }
+    .nav-spacer:after {
+      content: '\200b';
+    }
+    .nav-spacer {
+      width: 300px;
+    }
+    .navbar-collapse {
+      justify-content: space-evenly;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    border-top: 3px solid white;
+  }
+}
+
+.navbar-dark .navbar-nav {
+  .nav-link.active {
+    color: #87cefa;
+  }
+}
+
+
+
+
+
+.bg-black {
+  background-color: black;
+}

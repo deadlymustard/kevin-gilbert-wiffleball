@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "kevin-gilbert-wiffleball-dev": {
+      "hosting": {
+        "kevin-gilbert-wiffleball": [
+          "kevin-gilbert-wiffleball-dev"
+        ]
+      }
+    }
+  }
+}

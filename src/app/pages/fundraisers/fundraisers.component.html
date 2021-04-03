@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <markdown [data]="fundraisers?.fundraiserBrief"></markdown>
+    </div>
+  </div>
+  <div *ngFor="let fundraiser of fundraisers?.fundraisers" class="row">
+    <div class="col">
+      <div class="card">
+        <img class="card-img-top" src="{{fundraiser?.image.url}}">
+        <div class="card-body">
+          <h5 class="card-title">{{fundraiser.title}}</h5>
+          <p class="card-text">{{fundraiser.description}}</p>
+          <a class="btn btn-primary" routerLink="/{{fundraiser.routeId}}">Go To Event</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

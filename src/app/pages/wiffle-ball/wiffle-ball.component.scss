@@ -1,0 +1,17 @@
+.nav-mobile {
+  margin-top: -16px;
+  justify-content: space-around;
+  position: sticky;
+  top: 0;
+  background-color: white;
+
+  .nav-item {
+    flex-grow: 1;
+    text-align: center;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .nav-item .active {
+    border-bottom: 2px solid rgb(172, 0, 0);;
+  }
+}
