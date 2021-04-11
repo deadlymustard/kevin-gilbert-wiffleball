@@ -197,5 +197,8 @@
       }
     }
   },
-  "defaultProject": "kevin-gilbert-wiffleball"
+  "defaultProject": "kevin-gilbert-wiffleball",
+  "cli": {
+    "analytics": "c8f8f2b1-297f-4cc3-9445-c29aedf45440"
+  }
 }

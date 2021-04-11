@@ -1,3 +1,4 @@
+import { TeamService } from './services/team.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,6 +16,9 @@ import { BingoNightComponent } from './pages/bingo-night/bingo-night.component';
 import { WiffleBallDetailsComponent } from './pages/wiffle-ball-details/wiffle-ball-details.component';
 import { WiffleBallRulesComponent } from './pages/wiffle-ball-rules/wiffle-ball-rules.component';
 import { WiffleBallRegisterComponent } from './pages/wiffle-ball-register/wiffle-ball-register.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PastTournamentsComponent } from './pages/past-tournaments/past-tournaments.component';
 
 @NgModule({
   declarations: [
@@ -27,13 +31,17 @@ import { WiffleBallRegisterComponent } from './pages/wiffle-ball-register/wiffle
     BingoNightComponent,
     WiffleBallDetailsComponent,
     WiffleBallRulesComponent,
-    WiffleBallRegisterComponent
+    WiffleBallRegisterComponent,
+    PastTournamentsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    GoogleMapsModule,
     MarkdownModule.forRoot()
   ],
   providers: [],

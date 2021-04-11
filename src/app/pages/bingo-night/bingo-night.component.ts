@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DetailsPage } from 'src/app/interfaces/wiffle-ball-details-page';
+import { SinglePageService } from 'src/app/services/single-page.service';
 
 @Component({
   selector: 'app-bingo-night',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BingoNightComponent implements OnInit {
 
-  constructor() { }
+  details?: DetailsPage;
+  mapOptions?: google.maps.MapOptions;
+  markerPosition?: google.maps.LatLngLiteral | google.maps.LatLng;
+
+  constructor(private singlePageService: SinglePageService) { }
 
   ngOnInit(): void {
+    this.singlePageService.fetch("bingo-night-details").subscribe(res => {
+      this.details = res.details;
+      this.markerPosition = this.details?.location.center as google.maps.LatLngLiteral;
+      this.mapOptions = this.details?.location as google.maps.MapOptions;
+    })
   }
 
 }

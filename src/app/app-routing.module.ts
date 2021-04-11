@@ -1,3 +1,4 @@
+import { PastTournamentsComponent } from './pages/past-tournaments/past-tournaments.component';
 import { WiffleBallRegisterComponent } from './pages/wiffle-ball-register/wiffle-ball-register.component';
 import { WiffleBallRulesComponent } from './pages/wiffle-ball-rules/wiffle-ball-rules.component';
 import { WiffleBallDetailsComponent } from './pages/wiffle-ball-details/wiffle-ball-details.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
     ]
   },
   { path: 'bingo-night', component: BingoNightComponent },
+  { path: 'tournaments', component: PastTournamentsComponent },
 ];
 
 @NgModule({

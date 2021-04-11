@@ -1,2 +1,112 @@
 <div class="container">
-</div>
+    <h2>Register Your Team</h2>
+    <form [formGroup]="teamFormGroup">
+      <div class="form-group">
+        <label for="teamLeagueInput">League</label>
+        <select formControlName="league" class="form-control" id="teamLeagueInput">
+          <option>Competitive</option>
+          <option>Friendly</option>
+        </select>
+        <small id="teamLeagueHelp" class="form-text text-muted">
+          Please remember to review the Rules and Regulations <a routerLink="/fundraiser/wiffle-ball/rules">here</a>.
+          Note: Competitive has a minimum of 4 team members and Friendly has a minimum of 5 team members.
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="teamNameInput">Team Name</label>
+        <input formControlName="name" type="text" class="form-control" id="teamNameInput" aria-describedby="emailHelp" placeholder="e.g. Thundercats">
+        <small *ngIf="teamFormGroup?.dirty && teamFormGroup.get('name')?.errors && teamFormGroup.get('name')?.errors?.required"
+               class="form-text text-danger">
+          You must enter a name for your team.
+        </small>
+        <small *ngIf="teamFormGroup?.dirty && teamFormGroup.get('name')?.errors && teamFormGroup.get('name')?.errors?.teamExists"
+               class="form-text text-danger">
+          {{teamFormGroup.get('name')?.errors?.teamExists}}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="teamColorInput">Team Shirt Color</label>
+        <select formControlName="shirtColor" class="form-control" id="teamColorInput">
+          <option *ngFor="let color of colors">{{color}}</option>
+        </select>
+      </div>
+      <label>Team Captain</label>
+      <ul formGroupName="captain" class="list-group">
+        <li class="list-group-item">
+          <span class="badge badge-primary badge-pill float-right">1</span>
+          <!-- <fa-icon [icon]="['fas', 'star']" class="badge badge-golden float-right"></fa-icon> -->
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="inputMemberName">Name</label>
+              <input formControlName="name" type="text" class="form-control" id="inputCaptainName" placeholder="e.g. Jane, Jone Doe">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputCaptainEmail">Email Address</label>
+              <input formControlName="email" type="email" class="form-control" id="inputCaptainEmail" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="inputCaptainPhone">Phone Number</label>
+              <input formControlName="phone" type="text" class="form-control" id="inputCaptainPhone" mask='(000) 000-0000'  aria-describedby="emailHelp" placeholder="e.g. (555)-555-5555">
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputCaptainShirtSize">Shirt Size</label>
+              <select formControlName="shirtSize" id="inputCaptainShirtSize" class="form-control" placeholder="Shirt size">
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>XXL</option>
+              </select>
+            </div>
+          </div>
+          <small *ngIf="captainFormGroup.get('name')?.dirty && captainFormGroup.get('name')?.errors" class="float-left text-danger">
+            Team captain must have a name entered.&nbsp;
+          </small>
+          <small *ngIf="captainFormGroup.get('email')?.dirty && captainFormGroup.get('email')?.errors" class="float-left text-danger">
+            Team captain must have a valid email address.&nbsp;
+          </small>
+          <small *ngIf="captainFormGroup.get('phone')?.dirty && captainFormGroup.get('phone')?.errors" class="float-left text-danger">
+            Team captain must have a valid phone number.&nbsp;
+          </small>
+        </li>
+      </ul>
+      <label>Team Members</label>
+      <ul formArrayName="members" class="list-group">
+        <li *ngFor="let member of membersFormArray.controls; let i = index" formGroupName="{{i}}" class="list-group-item">
+          <span class="badge badge-primary badge-pill float-right">{{i + 2}}</span>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label for="inputMemberName">Name</label>
+              <input formControlName="name" type="text" class="form-control" id="inputMemberName" placeholder="e.g. Jane, Jone Doe">
+            </div>
+            <div class="form-group col-md-5">
+              <label for="inputMemberEmail">Email (optional)</label>
+              <input formControlName="email" type="text" class="form-control" id="inputMemberEmail" placeholder="Enter an email (optional)">
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputMemberShirtSize">Shirt Size</label>
+              <select formControlName="shirtSize" id="inputMemberShirtSize" class="form-control" placeholder="Shirt size">
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>XXL</option>
+              </select>
+            </div>
+          </div>
+          <!-- <fa-icon *ngIf="membersFormArray.length > minimumTeamMembers" (click)="removeMember(i)" [icon]="'trash-alt'" class="badge badge-danger float-right"></fa-icon> -->
+          <small *ngIf="membersFormArray.controls[i].get('name')?.dirty && membersFormArray.controls[i].get('name')?.errors"
+                 class="float-left text-danger">
+            Member must have a name entered.&nbsp;
+          </small>
+          <small *ngIf="membersFormArray.controls[i].get('email')?.dirty && membersFormArray.controls[i].get('email')?.errors"
+                 class="float-left text-danger">
+            Member must have a valid e-mail address.
+          </small>
+        </li>
+      </ul>
+      <button class="btn btn-primary float-right" (click)="addBlankMember()">Add Team Member <!-- <fa-icon [icon]="'user-plus'"></fa-icon> --> </button>
+    </form>
+  
+    <!--<button class="btn btn-primary d-block" type="submit" [disabled]="!teamFormGroup.valid" (click)="submitTeam()">Submit</button>-->
+  </div>

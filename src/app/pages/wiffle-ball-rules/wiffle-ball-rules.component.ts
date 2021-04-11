@@ -1,4 +1,6 @@
+import { WiffleBallRulesPage } from './../../interfaces/wiffle-ball-rules-page';
 import { Component, OnInit } from '@angular/core';
+import { SinglePageService } from 'src/app/services/single-page.service';
 
 @Component({
   selector: 'app-wiffle-ball-rules',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WiffleBallRulesComponent implements OnInit {
 
-  constructor() { }
+  rules?: WiffleBallRulesPage;
+
+  constructor(private singlePageService: SinglePageService) { }
 
   ngOnInit(): void {
+    this.singlePageService.fetch("wiffle-ball-rules").subscribe(res => {
+      this.rules = res;
+    })
   }
 
 }

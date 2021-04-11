@@ -1,2 +1,19 @@
 <div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Rules And Regulations</h2>
+            <markdown [data]="rules?.general"></markdown>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <markdown [data]="rules?.competitive"></markdown>
+        </div>
+        <div class="col-md-6">
+            <markdown [data]="rules?.friendly"></markdown>
+        </div>
+    </div>
+    <div class="row">
+        <markdown class="col" [data]="rules?.additional"></markdown>
+    </div>
 </div>

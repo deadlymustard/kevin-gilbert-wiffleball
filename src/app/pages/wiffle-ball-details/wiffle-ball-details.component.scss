@@ -1,0 +1,22 @@
+.container {
+    .subtitle {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    ::ng-deep {
+        .info {
+            p, h5 {
+                margin-bottom: 0;;
+            }
+            h5 {
+                margin-top: 5px;
+            }
+        }
+    }
+    google-map {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
