@@ -19,3 +19,13 @@
     border-bottom: 2px solid rgb(172, 0, 0);;
   }
 }
+
+.nav-desktop {
+  a.nav-link {
+    color: gray;
+  }
+  a.nav-link.active {
+    border-bottom: 2px solid #ac0000;
+    color: #ac0000;
+  }
+}

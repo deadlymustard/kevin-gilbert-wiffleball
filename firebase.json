@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "kevin-gilbert-wiffleball",
-      "public": "dist\\kevin-gilbert-wiffleball\\dist\\kevin-gilbert-wiffleball\\browser",
+      "public": "dist/kevin-gilbert-wiffleball/dist/kevin-gilbert-wiffleball/browser",
       "ignore": [
         "**/.*"
       ],

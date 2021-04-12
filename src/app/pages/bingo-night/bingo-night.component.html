@@ -1,8 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col">
-            <h2>{{details?.title}}</h2>
-        </div>
+        <markdown class="col subtitle" [data]="details?.subtitle"></markdown>
     </div>
     <div class="row">
         <markdown class="col-lg-6 info" [data]="details?.info"></markdown>
