@@ -1,15 +1,15 @@
 <div class="past-tournament container">
-    <ngb-pagination *ngIf="tournaments" [collectionSize]="tournaments.length" [pageSize]="1" [(page)]="selectedPage" [directionLinks]="false" aria-label="Custom pagination">
+    <ngb-pagination *ngIf="tournaments" [collectionSize]="tournaments.length" [pageSize]="1" [(page)]="realPage" (pageChange)="changePage($event)" [directionLinks]="false" aria-label="Custom pagination">
         <ng-template ngbPaginationNumber let-p>{{ tournaments[p - 1].year }}</ng-template>
       </ngb-pagination>
     <div class="row">
         <div class="col">
-            <h2 *ngIf="tournaments">{{tournaments[selectedPage - 1].title}}</h2>
+            <h2 *ngIf="tournaments">{{tournaments[selectedPage].title}}</h2>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <markdown *ngIf="tournaments[selectedPage - 1]" [data]="tournaments[selectedPage - 1].body"></markdown>
+            <markdown *ngIf="tournaments[selectedPage]" [data]="tournaments[selectedPage].body"></markdown>
         </div>
     </div>
     <div class="row">

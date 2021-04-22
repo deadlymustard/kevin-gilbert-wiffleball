@@ -4,7 +4,7 @@
     </div>
     <div class="row">
         <markdown class="col-lg-6 info" [data]="details?.info"></markdown>
-        <google-map class="col-lg-6" *ngIf="mapOptions && markerPosition" [options]="mapOptions" width="100%" height="50vh">
+        <google-map class="col-lg-6" *ngIf="mapOptions && markerPosition" [options]="mapOptions" width="100%" height="30vh">
             <map-marker [position]="markerPosition"></map-marker>
         </google-map>
     </div>
@@ -12,4 +12,3 @@
         <markdown class="col" [data]="details?.body"></markdown>
     </div>
   </div>
-  

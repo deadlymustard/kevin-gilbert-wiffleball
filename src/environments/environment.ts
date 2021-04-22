@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  strapiApiUrl: "http://localhost:4001"
+  strapiApiUrl: "https://ktg-wiffleball-strapi.herokuapp.com",
+  paypalApiKey: "AYd_PiOoMb13TRjG8AQnQFvOLqZIT85fPVxAmLjlBai-N3l9ccju1NgjnMS-KerSm0eMy_YaEd6eK11d"
 };
 
 /*

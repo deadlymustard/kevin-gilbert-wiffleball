@@ -1,3 +1,5 @@
+import { DonateComponent } from './pages/donate/donate.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeamService } from './services/team.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,8 +19,8 @@ import { WiffleBallDetailsComponent } from './pages/wiffle-ball-details/wiffle-b
 import { WiffleBallRulesComponent } from './pages/wiffle-ball-rules/wiffle-ball-rules.component';
 import { WiffleBallRegisterComponent } from './pages/wiffle-ball-register/wiffle-ball-register.component';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PastTournamentsComponent } from './pages/past-tournaments/past-tournaments.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { PastTournamentsComponent } from './pages/past-tournaments/past-tourname
     NavbarComponent,
     FooterComponent,
     AboutComponent,
+    DonateComponent,
     FundraisersComponent,
     WiffleBallComponent,
     BingoNightComponent,
@@ -42,6 +45,7 @@ import { PastTournamentsComponent } from './pages/past-tournaments/past-tourname
     ReactiveFormsModule,
     HttpClientModule,
     GoogleMapsModule,
+    NgxPayPalModule,
     MarkdownModule.forRoot()
   ],
   providers: [],
