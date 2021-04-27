@@ -1,3 +1,4 @@
+import { ImageService } from './../../services/image.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Tournament } from './../../interfaces/past-tournaments-page';
@@ -16,9 +17,11 @@ export class PastTournamentsComponent implements OnInit {
   selectedPage: number = 0;
   realPage: number = 1;
   images!: any[]
+  imageSize!: string;
 
   constructor(
     private singlePageService: SinglePageService,
+    private imageService: ImageService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -41,6 +44,7 @@ export class PastTournamentsComponent implements OnInit {
       this.realPage = this.selectedPage + 1;
       this.images = this.tournaments[this.selectedPage].carousel;
     })
+    this.imageService.getImageSize().subscribe(res => this.imageSize = res)
   }
 
   changePage(page: number): void {

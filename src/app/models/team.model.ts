@@ -1,15 +1,16 @@
 import { Member } from './member.model';
 
 export class Team {
-    id?: string;
-    name: string = '';
-    color: string = '';
+    id?: String;
+    name: String = '';
+    color: String = '';
     members: Member[] = [];
-    league: League = League.COMPETITIVE; 
-    registrationFee: string = '';
+    league: League = League.COMPETITIVE;
+    registrationFee: Number = 125;
     paid: boolean = false;
+    year?: number;
   }
-  
+
   export enum League {
     FRIENDLY = 'Friendly',
     COMPETITIVE = 'Competitive'

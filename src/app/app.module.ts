@@ -1,3 +1,5 @@
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ColorService } from './services/color.service';
 import { DonateComponent } from './pages/donate/donate.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeamService } from './services/team.service';
@@ -21,6 +23,10 @@ import { WiffleBallRegisterComponent } from './pages/wiffle-ball-register/wiffle
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PastTournamentsComponent } from './pages/past-tournaments/past-tournaments.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { ConfigurationService } from './services/configuration.service';
+import { WiffleBallTeamComponent } from './pages/wiffle-ball-team/wiffle-ball-team.component';
 
 @NgModule({
   declarations: [
@@ -35,20 +41,28 @@ import { NgxPayPalModule } from 'ngx-paypal';
     WiffleBallDetailsComponent,
     WiffleBallRulesComponent,
     WiffleBallRegisterComponent,
-    PastTournamentsComponent
+    PastTournamentsComponent,
+    WiffleBallTeamComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FontAwesomeModule,
     GoogleMapsModule,
     NgxPayPalModule,
     MarkdownModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    ConfigurationService,
+    TeamService,
+    ColorService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+

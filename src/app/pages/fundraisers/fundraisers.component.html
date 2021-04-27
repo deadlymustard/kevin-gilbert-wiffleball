@@ -7,7 +7,7 @@
   <div *ngFor="let fundraiser of fundraisers?.fundraisers" class="row">
     <div class="col">
       <div class="card">
-        <img class="card-img-top" src="{{fundraiser?.image.url}}">
+        <img class="card-img-top" src="{{fundraiser?.image.formats[imageSize].url}}">
         <div class="card-body">
           <h5 class="card-title">{{fundraiser.title}}</h5>
           <p class="card-text">{{fundraiser.description}}</p>

@@ -1,8 +1,8 @@
+import { Team } from 'src/app/models/team.model';
 import { Injectable } from '@angular/core';
-import {AngularFirestore, QuerySnapshot} from "@angular/fire/firestore";
-import {from} from "rxjs/internal/observable/from";
-import {Observable} from "rxjs/internal/Observable";
-import { Team } from '../models/team.model';
+import {AngularFirestore, CollectionReference, DocumentReference, DocumentSnapshot, Query, QuerySnapshot} from "@angular/fire/firestore";
+import { from, Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,25 +11,44 @@ export class TeamService {
 
   constructor(private firestore: AngularFirestore) { }
 
-  getTeams(): Observable<QuerySnapshot<Team>>{
-    return this.firestore.collection('teams').get() as Observable<QuerySnapshot<Team>>;
+  getAllTeams(): Observable<Team[]> {
+    return this.firestore.collection<Team>('teams').get().pipe(
+      map(collection => collection.docs.map(doc => doc.data()))
+    );
   }
 
-  getTeam(teamId: string) {
-    return this.firestore.doc('teams/' + teamId).get();
+  getTeams(year: number): Observable<Team[]> {
+    return this.firestore.collection<Team>('teams', ref => {
+      let query: CollectionReference | Query = ref;
+      if (year) {
+        query = query.where('year', '==', year)
+      }
+      return query;
+    }).get().pipe(
+      map(collection => collection.docs.map(doc => doc.data()))
+    );
   }
 
-  createTeam(team: Team): Observable<any> {
-    return from(this.firestore.collection('teams').add(Object.assign({}, team) as Object));
+  getTeam(teamId: string): Observable<Team> {
+    console.log(teamId);
+    return this.firestore.doc<Team>(`teams/${teamId}`).get().pipe(
+      map(doc => doc.data() as Team)
+    );
   }
 
-  updateTeam(team: Team) {
+  createTeam(team: Team): Observable<String> {
+    return from(this.firestore.collection<Team>('teams').add({...team})).pipe(
+      map(docRef => docRef.id)
+    );
+  }
+
+  updateTeam(team: Team): Observable<void> {
     const teamId = team.id;
     delete team.id;
-    return from(this.firestore.doc('teams/' + teamId).update(Object.assign({}, team) as Object));
+    return from(this.firestore.doc<Team>(`teams/${teamId}`).update({...team}));
   }
 
-  deleteTeam(teamId: string){
-    this.firestore.doc('teams/' + teamId).delete();
+  deleteTeam(team: Team) {
+    this.firestore.doc(`teams/${team.id}`).delete();
   }
 }

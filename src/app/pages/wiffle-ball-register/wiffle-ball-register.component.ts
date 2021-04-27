@@ -1,3 +1,7 @@
+import { PaymentUtils } from './../../utils/payment-utils';
+import { ItemizedPayment } from './../../interfaces/itemized-payment';
+import { ConfigurationService } from './../../services/configuration.service';
+
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
@@ -6,6 +10,10 @@ import { Member, ShirtSize } from 'src/app/models/member.model';
 import { League, Team } from 'src/app/models/team.model';
 import { TeamService } from 'src/app/services/team.service';
 import { TeamValidator } from 'src/app/validators/team.validator';
+import { ConfigurationData } from 'src/app/interfaces/wiffle-ball-register-page';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt'
+import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
+
 
 @Component({
   selector: 'app-wiffle-ball-register',
@@ -13,6 +21,8 @@ import { TeamValidator } from 'src/app/validators/team.validator';
   styleUrls: ['./wiffle-ball-register.component.scss']
 })
 export class WiffleBallRegisterComponent implements OnInit {
+
+  config?: ConfigurationData;
 
   formType!: string;
 
@@ -23,11 +33,13 @@ export class WiffleBallRegisterComponent implements OnInit {
 
   minimumTeamMembers: number = 3;
 
+  faTrashAlt = faTrashAlt;
+  faStar = faStar;
 
   teamFormGroup!: FormGroup ;
 
   data = {
-    description: `Registration for the 2019 Kevin Gilbert Wiffle Ball Tournament is now open. 
+    description: `Registration for the 2019 Kevin Gilbert Wiffle Ball Tournament is now open.
     Registration is $100 per team. Registration includes a free t-shirt and a two-game guarantee.`,
   };
 
@@ -35,13 +47,13 @@ export class WiffleBallRegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    //private teamService: TeamService,
-    // private teamValidator: TeamValidator,
+    private configurationService: ConfigurationService,
+    private teamService: TeamService,
+    private teamValidator: TeamValidator,
     public fb: FormBuilder,
     private title: Title,
     private meta: Meta
   ) {
-
     this.team = new Team();
     this.team.league = League.COMPETITIVE;
     this.captain = Object.assign(new Member(), {
@@ -57,6 +69,8 @@ export class WiffleBallRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.configurationService.configurationData.subscribe(config => this.config = config);
+
     this.title.setTitle('Kevin T. Gilbert Scholarship Fund | Wiffle Ball Register');
     this.meta.addTags([
       { name: 'og:url', content: '/wiffle-ball/register' },
@@ -107,13 +121,10 @@ export class WiffleBallRegisterComponent implements OnInit {
     team.league = teamValues.league;
     team.members = [captain, ...members];
     team.paid = false;
+    team.year = this.config?.registrationYear;
 
-    const baseMembers = (teamValues.league === League.COMPETITIVE) ? 4 : 5;
-    const baseFee = 125 + ((team.members.length % baseMembers) * 25);
-
-
-    team.registrationFee = (baseFee * (1.029) +  .30).toString();
-
+    const payment: ItemizedPayment = PaymentUtils.calculateTeamPayment(team);
+    team.registrationFee = payment.netPrice;
 
     return team;
   }
@@ -138,13 +149,13 @@ export class WiffleBallRegisterComponent implements OnInit {
     this.membersFormArray.removeAt(index);
   }
 
-  // submitTeam(): void {
-  //   this.teamService.createTeam(this.getFormValues()).subscribe((returnedDocRef: any) => {
-  //     this.router.navigate([`/fundraiser/wiffle-ball/team/${returnedDocRef.id}`]);
-  //   }, ((err: any) => {
-  //     console.log(err);
-  //   }));
-  // }
+  submitTeam(): void {
+    this.teamService.createTeam(this.getFormValues()).subscribe((teamId: String) => {
+      this.router.navigate([`/wiffle-ball/team/${teamId}`]);
+    }, ((err: any) => {
+      console.log(err);
+    }));
+  }
 
   get membersFormArray(): FormArray {
     return this.teamFormGroup.get('members') as FormArray;

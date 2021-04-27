@@ -1,5 +1,5 @@
-<div class="navbar-splash">
-  <img  src="../../assets/images/logo.png">
+<div class="navbar-splash" [ngStyle]="{'background-image': 'url(' + this.ktgSplashFinalUrl+ ')'}">
+  <img src="{{ktgLogoFinalUrl}}">
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-black mb-3">
   <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">

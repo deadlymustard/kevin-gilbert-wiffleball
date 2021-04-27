@@ -1,0 +1,52 @@
+<div class="container">
+  <h2>{{ wiffleBallTeamPage?.congratulations }}</h2>
+  <div *ngIf="team.paid" class="payment-paid">
+    <markdown [data]="wiffleBallTeamPage?.teamHasPaid" class="row col"></markdown>
+  </div>
+  <div *ngIf="!team.paid" class="payment-methods">
+    <div class="check-total">
+      <h4>Your total:</h4>
+      <p>Amount due at event or by check: </p>
+      <span class="text-muted d-block">Team Fee: ${{teamPaymentFee.basePrice}}</span>
+      <span *ngIf="teamPaymentFee.numberOfAdditionalMembers > 0" class="text-muted d-block">Additional Members ($25) x {{ teamPaymentFee.numberOfAdditionalMembers }}: ${{ 25 * teamPaymentFee.numberOfAdditionalMembers }} +</span>
+      <hr>
+      <span class="text-muted d-block">Total: ${{teamPaymentFee.basePrice}}.00</span>
+    </div>
+
+    <h4>Please pay by one of three options below:</h4>
+    <div class="card-deck">
+      <div class="card mb-3">
+        <div class="card-header">{{wiffleBallTeamPage?.payAtEvent?.header}}</div>
+        <div class="card-body">
+          <div class="card-text">
+            <markdown [data]="wiffleBallTeamPage?.payAtEvent?.body"></markdown>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">{{wiffleBallTeamPage?.payByCheck?.header}}</div>
+        <div class="card-body">
+          <div class="card-text">
+            <markdown [data]="wiffleBallTeamPage?.payByCheck?.body"></markdown>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">{{wiffleBallTeamPage?.payOnline?.header}}</div>
+      <div class="card-body">
+        <div class="card-text">
+          <markdown [data]="wiffleBallTeamPage?.payOnline?.body"></markdown>
+        </div>
+        <span class="text-muted d-block">Team Fee: $125.00</span>
+        <span *ngIf="teamPaymentFee.numberOfAdditionalMembers > 0" class="text-muted d-block">Additional Members ($25) x {{ teamPaymentFee?.numberOfAdditionalMembers }}: ${{25 * teamPaymentFee.numberOfAdditionalMembers }}</span>
+        <span class="text-muted d-block">Transaction Fee: ${{teamPaymentFee?.transactionFee?.toFixed(2)}} +</span>
+        <hr>
+        <span class="text-muted d-block mb-5">Total: ${{teamPaymentFee?.netPrice?.toFixed(2) }}</span>
+        <div class="paypal-button">
+          <ngx-paypal [config]="paypalConfig"></ngx-paypal>
+        </div>
+      </div>
+    </div>
+</div>

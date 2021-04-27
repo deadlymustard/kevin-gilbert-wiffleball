@@ -1,3 +1,4 @@
+import { ImageService } from './../../services/image.service';
 import { Component, OnInit } from '@angular/core';
 import { FundraisersPage } from 'src/app/interfaces/fundraisers-page';
 import { SinglePageService } from 'src/app/services/single-page.service';
@@ -12,9 +13,11 @@ export class FundraisersComponent implements OnInit {
 
   strapiApiUrl: string;
   fundraisers?: FundraisersPage;
+  imageSize!: string;
 
   constructor(
-    private singlePageService: SinglePageService
+    private singlePageService: SinglePageService,
+    private imageService: ImageService
   ) {
     this.strapiApiUrl = environment.strapiApiUrl;
   }
@@ -23,5 +26,6 @@ export class FundraisersComponent implements OnInit {
     this.singlePageService.fetch("fundraisers").subscribe(res => {
       this.fundraisers = res;
     })
+    this.imageService.getImageSize().subscribe(res => this.imageSize = res)
   }
 }

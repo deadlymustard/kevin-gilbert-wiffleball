@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { Component, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -7,11 +7,12 @@ import { environment } from 'src/environments/environment';
   templateUrl: './donate.component.html',
   styleUrls: ['./donate.component.scss']
 })
-export class DonateComponent implements OnInit {
+export class DonateComponent {
 
-  public donationAmount: string = '';
+  donationAmount: string = '';
+  donated: boolean = false;
 
-  public paypalConfig = <IPayPalConfig> {
+  paypalConfig: IPayPalConfig = {
     currency: 'USD',
     clientId: environment.paypalApiKey,
     createOrderOnClient: (data: any) => <ICreateOrderRequest> {
@@ -41,14 +42,12 @@ export class DonateComponent implements OnInit {
       label: 'paypal',
       layout: 'vertical'
     },
-    onApprove: (data: any, actions: any) => {
-      console.log("Paid!");
-    }
-  };
-
-  constructor() { }
-
-  ngOnInit(): void {
+    onApprove: this.onApprove
   }
 
+  constructor() {}
+
+  onApprove(data: any, actions: any) {
+    this.donated = true;
+  }
 }
