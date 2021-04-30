@@ -1,3 +1,4 @@
+import { mergeMap } from 'rxjs/operators';
 import { WiffleBallTeamPage } from './../../interfaces/wiffle-ball-team-page';
 import { SinglePageService } from './../../services/single-page.service';
 import { TeamService } from './../../services/team.service';
@@ -5,9 +6,11 @@ import { PaymentUtils } from './../../utils/payment-utils';
 import { ItemizedPayment } from './../../interfaces/itemized-payment';
 import { Team } from './../../models/team.model';
 import { ActivatedRoute, Data } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ICreateOrderRequest, IOnApproveCallbackActions, IOnApproveCallbackData, IPayPalConfig } from 'ngx-paypal';
+import { isPlatformBrowser } from '@angular/common';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-wiffle-ball-team',
@@ -24,15 +27,21 @@ export class WiffleBallTeamComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private teamService: TeamService,
-    private singlePageService: SinglePageService
-  ) {
-    this.route.data.subscribe((data: Data) => {
-      this.team = data.team;
-      this.teamPaymentFee = PaymentUtils.calculateTeamPayment(this.team);
-    });
-  }
+    private singlePageService: SinglePageService,
+    private firestore: AngularFirestore,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const teamId = params.get('id');
+      console.log(teamId);
+      this.firestore.doc<Team>(`teams/${teamId}`).valueChanges().subscribe(team => {
+        this.team = team as Team;
+        this.teamPaymentFee = PaymentUtils.calculateTeamPayment(this.team)
+      });
+    });
+
     this.singlePageService.fetch("wiffle-ball-team-payment").subscribe(res => {
       this.wiffleBallTeamPage = res;
     });
@@ -68,10 +77,17 @@ export class WiffleBallTeamComponent implements OnInit {
         layout: 'vertical'
       },
       onApprove: (data: IOnApproveCallbackData, actions: IOnApproveCallbackActions) => {
-        console.log(this.team);
         this.team.paid = true;
         this.teamService.updateTeam(this.team);
       }
+    }
+  }
+
+  shouldRenderButton(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

@@ -1,20 +1,20 @@
 import { Team } from 'src/app/models/team.model';
 import { Injectable } from '@angular/core';
-import {AngularFirestore, CollectionReference, DocumentReference, DocumentSnapshot, Query, QuerySnapshot} from "@angular/fire/firestore";
 import { from, Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
+import { AngularFirestore, CollectionReference, Query } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(
+    private firestore: AngularFirestore
+  ) { }
 
   getAllTeams(): Observable<Team[]> {
-    return this.firestore.collection<Team>('teams').get().pipe(
-      map(collection => collection.docs.map(doc => doc.data()))
-    );
+    return this.firestore.collection<Team>('teams').valueChanges()
   }
 
   getTeams(year: number): Observable<Team[]> {
@@ -25,15 +25,12 @@ export class TeamService {
       }
       return query;
     }).get().pipe(
-      map(collection => collection.docs.map(doc => doc.data()))
+      map(collection => collection.docs.map((doc: any) => doc.data() as Team))
     );
   }
 
   getTeam(teamId: string): Observable<Team> {
-    console.log(teamId);
-    return this.firestore.doc<Team>(`teams/${teamId}`).get().pipe(
-      map(doc => doc.data() as Team)
-    );
+    return this.firestore.doc<Team>(`teams/${teamId}`).valueChanges() as Observable<Team>;
   }
 
   createTeam(team: Team): Observable<String> {

@@ -1,3 +1,4 @@
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ColorService } from './services/color.service';
 import { DonateComponent } from './pages/donate/donate.component';
@@ -28,6 +29,7 @@ import { environment } from 'src/environments/environment';
 import { ConfigurationService } from './services/configuration.service';
 import { WiffleBallTeamComponent } from './pages/wiffle-ball-team/wiffle-ball-team.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,7 @@ import { WiffleBallTeamComponent } from './pages/wiffle-ball-team/wiffle-ball-te
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    AngularFirestoreModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,

@@ -1,6 +1,7 @@
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-import { Component, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { Component, Inject, PLATFORM_ID } from "@angular/core";
 import { environment } from 'src/environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-donate',
@@ -45,9 +46,17 @@ export class DonateComponent {
     onApprove: this.onApprove
   }
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
   onApprove(data: any, actions: any) {
     this.donated = true;
+  }
+
+  shouldRenderButton(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

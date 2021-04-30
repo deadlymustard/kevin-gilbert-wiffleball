@@ -7,7 +7,7 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,18 +19,14 @@ export class WiffleBallTeamResolver implements Resolve<Team | undefined> {
     private router: Router
   ) {}
 
+  // Disable Due To Angular <> Firestore Bug
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Team | undefined> {
     const id = route.paramMap.get('id');
     if(!id) {
       this.router.navigate(['/not-found']);
       return of();
     } else {
-      return this.teamService.getTeam(id).pipe(
-        map((team: Team) => {
-          team.id = id;
-          return team;
-        })
-      );
+      return this.teamService.getTeam(id);
     }
   }
 }

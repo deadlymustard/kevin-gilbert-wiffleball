@@ -12,8 +12,6 @@ import { DonateComponent } from './pages/donate/donate.component';
 import { AboutComponent } from './pages/about/about.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { APP_INITIALIZER } from '@angular/core';
-import { ConfigurationService } from './services/configuration.service';
 
 const routes: Routes = [
   { path: '', component: AboutComponent },
@@ -26,8 +24,7 @@ const routes: Routes = [
   },
   {
     path: "wiffle-ball/team/:id",
-    component: WiffleBallTeamComponent,
-    resolve: { team: WiffleBallTeamResolver }
+    component: WiffleBallTeamComponent
   },
   {
     path: 'wiffle-ball',
@@ -35,7 +32,7 @@ const routes: Routes = [
     children: [
       { path: 'details', component: WiffleBallDetailsComponent},
       { path: 'rules', component: WiffleBallRulesComponent},
-      { path: 'register', component: WiffleBallRegisterComponent, resolve: [WiffleBallRegisterResolver] },
+      { path: 'register', component: WiffleBallRegisterComponent },
     ]
   },
   { path: 'bingo-night', component: BingoNightComponent },

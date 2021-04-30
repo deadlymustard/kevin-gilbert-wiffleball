@@ -15,7 +15,7 @@
         <small id="paypalHelp" class="form-text text-muted">Enter in the amount you wish to donate!</small>
       </form>
       <div class="paypal-button">
-        <ngx-paypal [config]="paypalConfig"></ngx-paypal>
+        <ngx-paypal *ngIf="shouldRenderButton()" [config]="paypalConfig"></ngx-paypal>
       </div>
     </div>
     <h5>OR</h5>

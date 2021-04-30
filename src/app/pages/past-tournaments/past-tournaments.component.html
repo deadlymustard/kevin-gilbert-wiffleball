@@ -4,7 +4,7 @@
       </ngb-pagination>
     <div class="row">
         <div class="col">
-            <h2 *ngIf="tournaments">{{tournaments[selectedPage].title}}</h2>
+            <h2 *ngIf="tournaments && tournaments[selectedPage]">{{tournaments[selectedPage].title}}</h2>
         </div>
     </div>
     <div class="row">

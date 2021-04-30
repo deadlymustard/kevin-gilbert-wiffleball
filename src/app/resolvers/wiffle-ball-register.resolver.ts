@@ -24,6 +24,7 @@ export class WiffleBallRegisterResolver implements Resolve<String[]> {
     private configurationService: ConfigurationService
   ) { }
 
+  // Disabled Due To Angular <> Firestore Bug
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<String[]> | Promise<String[]> | String[] {
     return this.configurationService.configurationData.pipe(
       mergeMap((configurationData: ConfigurationData) => {

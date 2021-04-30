@@ -25,7 +25,6 @@ export class AboutComponent implements OnInit {
   ngOnInit() {
     this.singlePageService.fetch("about").subscribe(res => {
       this.about = res;
-      console.log(this.about);
     });
     this.imageService.getImageSize().subscribe(res => this.imageSize = res)
   }

@@ -1,8 +1,10 @@
+import { ColorService } from './../../services/color.service';
+import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
 import { PaymentUtils } from './../../utils/payment-utils';
 import { ItemizedPayment } from './../../interfaces/itemized-payment';
 import { ConfigurationService } from './../../services/configuration.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Query } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,6 +15,7 @@ import { TeamValidator } from 'src/app/validators/team.validator';
 import { ConfigurationData } from 'src/app/interfaces/wiffle-ball-register-page';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -50,6 +53,8 @@ export class WiffleBallRegisterComponent implements OnInit {
     private configurationService: ConfigurationService,
     private teamService: TeamService,
     private teamValidator: TeamValidator,
+    private firestore: AngularFirestore,
+    private colorService: ColorService,
     public fb: FormBuilder,
     private title: Title,
     private meta: Meta
@@ -63,13 +68,26 @@ export class WiffleBallRegisterComponent implements OnInit {
         shirtSize: ShirtSize.M,
         isCaptain: true
     } as Member);
-
-    this.colors = this.route.snapshot.data[0];
-
   }
 
   ngOnInit() {
-    this.configurationService.configurationData.subscribe(config => this.config = config);
+    this.configurationService.configurationData.pipe(
+      tap((configurationData: ConfigurationData) => this.config = configurationData),
+      mergeMap((configurationData: ConfigurationData) => {
+        return this.colorService.getColors().pipe(
+          mergeMap((colors: String[]) => {
+            return this.teamService.getTeams(configurationData.registrationYear).pipe(
+              map((teams: Team[]) => {
+                const remainingColors: String[] = colors.filter((color: String) => {
+                  return !teams.some((team: Team) => team.color === color)
+                });
+                return remainingColors;
+              })
+            )
+          })
+        );
+      })
+    ).subscribe(colors => this.colors = colors);
 
     this.title.setTitle('Kevin T. Gilbert Scholarship Fund | Wiffle Ball Register');
     this.meta.addTags([
