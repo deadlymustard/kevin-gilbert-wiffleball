@@ -32,7 +32,7 @@ const routes: Routes = [
     children: [
       { path: 'details', component: WiffleBallDetailsComponent},
       { path: 'rules', component: WiffleBallRulesComponent},
-      { path: 'register', component: WiffleBallRegisterComponent, resolve: [ WiffleBallRegisterResolver ] },
+      { path: 'register', component: WiffleBallRegisterComponent },
     ]
   },
   { path: 'bingo-night', component: BingoNightComponent },

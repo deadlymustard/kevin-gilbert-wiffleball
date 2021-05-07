@@ -4,7 +4,7 @@ import { PaymentUtils } from './../../utils/payment-utils';
 import { ItemizedPayment } from './../../interfaces/itemized-payment';
 import { ConfigurationService } from './../../services/configuration.service';
 
-import { Component, OnInit, Query } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Query } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { map, mergeMap, tap } from 'rxjs/operators';
   templateUrl: './wiffle-ball-register.component.html',
   styleUrls: ['./wiffle-ball-register.component.scss']
 })
-export class WiffleBallRegisterComponent implements OnInit {
+export class WiffleBallRegisterComponent implements OnInit, AfterViewInit {
 
   config?: ConfigurationData;
 
@@ -69,11 +69,23 @@ export class WiffleBallRegisterComponent implements OnInit {
         isCaptain: true
     } as Member);
 
-    this.colors = this.route.snapshot.data[0];
+  }
+  ngAfterViewInit(): void {
+
   }
 
   ngOnInit() {
-    this.configurationService.configurationData.subscribe((config: ConfigurationData) => this.config = config);
+    this.configurationService.configurationData.subscribe((config: ConfigurationData) => {
+      this.config = config
+      this.colorService.getColors().subscribe((colors: String[]) => {
+        this.teamService.getTeams(config.registrationYear).subscribe((teams: Team[]) => {
+          const remainingColors: String[] = colors.filter((color: String) => {
+            return !teams.some((team: Team) => team.color === color)
+          });
+          this.colors = remainingColors;
+        })
+      })
+    });
 
     this.title.setTitle('Kevin T. Gilbert Scholarship Fund | Wiffle Ball Register');
     this.meta.addTags([
