@@ -10,7 +10,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Deploying
+## Deploying The Site
 
 Code should be built and deployed with Node 12. You may need to install nvm to manage your node versions correctly. The following steps will allow you to run the build with the relevant version:
 `nvm install 12.0.0`
@@ -18,9 +18,15 @@ Code should be built and deployed with Node 12. You may need to install nvm to m
 
 Run `firebase login` and login to the correct project.
 
-Run `firebase use kevin-gilbert-wiffleball-<env>` to switch to the environment you'd like to deploy to.
+Run `firebase use <dev|production>` to switch to the environment you'd like to deploy to.
 
-Run `ng deploy` to deploy the code.
+Run `npm run dev:build:ssr` to build the site/server.
+
+Run `cd functions` to navigate to the directory.
+
+Run `npm run build` to build the functions.
+
+Finally, run `firebase deploy` to deploy all the functions/hosting.
 
 ## Viewing Logs
 

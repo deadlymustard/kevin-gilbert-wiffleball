@@ -6,7 +6,7 @@ import { PaymentUtils } from './../../utils/payment-utils';
 import { ItemizedPayment } from './../../interfaces/itemized-payment';
 import { Team } from './../../models/team.model';
 import { ActivatedRoute, Data } from '@angular/router';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ICreateOrderRequest, IOnApproveCallbackActions, IOnApproveCallbackData, IPayPalConfig } from 'ngx-paypal';
 import { isPlatformBrowser } from '@angular/common';
@@ -17,8 +17,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
   templateUrl: './wiffle-ball-team.component.html',
   styleUrls: ['./wiffle-ball-team.component.scss']
 })
-export class WiffleBallTeamComponent implements OnInit {
+export class WiffleBallTeamComponent implements OnInit, AfterViewInit {
 
+  teamId!: string;
   team!: Team;
   teamPaymentFee!: ItemizedPayment;
   paypalConfig!: IPayPalConfig;
@@ -30,18 +31,28 @@ export class WiffleBallTeamComponent implements OnInit {
     private singlePageService: SinglePageService,
     private firestore: AngularFirestore,
     @Inject(PLATFORM_ID) private platformId: any
-  ) { }
+  ) {
+    // this.route.data.subscribe(routeData => {
+    //   this.team = routeData.team;
+    //   this.teamPaymentFee = PaymentUtils.calculateTeamPayment(this.team);
+    // })
+
+  }
+
+  ngAfterViewInit(): void {
+    this.route.params.subscribe(params => {
+      this.teamId = params['id'];
+      this.teamService.getTeam(this.teamId).subscribe(team => {
+        this.team = team;
+        if (this.team) {
+          this.team.id = this.teamId;
+          this.teamPaymentFee = PaymentUtils.calculateTeamPayment(this.team);
+        }
+      });
+    })
+  }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const teamId = params.get('id');
-      console.log(teamId);
-      this.firestore.doc<Team>(`teams/${teamId}`).valueChanges().subscribe(team => {
-        this.team = team as Team;
-        this.teamPaymentFee = PaymentUtils.calculateTeamPayment(this.team)
-      });
-    });
-
     this.singlePageService.fetch("wiffle-ball-team-payment").subscribe(res => {
       this.wiffleBallTeamPage = res;
     });

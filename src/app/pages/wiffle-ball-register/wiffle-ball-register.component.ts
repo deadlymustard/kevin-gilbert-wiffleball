@@ -68,26 +68,12 @@ export class WiffleBallRegisterComponent implements OnInit {
         shirtSize: ShirtSize.M,
         isCaptain: true
     } as Member);
+
+    this.colors = this.route.snapshot.data[0];
   }
 
   ngOnInit() {
-    this.configurationService.configurationData.pipe(
-      tap((configurationData: ConfigurationData) => this.config = configurationData),
-      mergeMap((configurationData: ConfigurationData) => {
-        return this.colorService.getColors().pipe(
-          mergeMap((colors: String[]) => {
-            return this.teamService.getTeams(configurationData.registrationYear).pipe(
-              map((teams: Team[]) => {
-                const remainingColors: String[] = colors.filter((color: String) => {
-                  return !teams.some((team: Team) => team.color === color)
-                });
-                return remainingColors;
-              })
-            )
-          })
-        );
-      })
-    ).subscribe(colors => this.colors = colors);
+    this.configurationService.configurationData.subscribe((config: ConfigurationData) => this.config = config);
 
     this.title.setTitle('Kevin T. Gilbert Scholarship Fund | Wiffle Ball Register');
     this.meta.addTags([

@@ -1,6 +1,6 @@
 import { Team } from './../models/team.model';
 import { TeamService } from './../services/team.service';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import {
   Router, Resolve,
   RouterStateSnapshot,
@@ -16,6 +16,7 @@ export class WiffleBallTeamResolver implements Resolve<Team | undefined> {
 
   constructor(
     private teamService: TeamService,
+    private zone: NgZone,
     private router: Router
   ) {}
 

@@ -6,6 +6,17 @@
           "kevin-gilbert-wiffleball-dev"
         ]
       }
+    },
+    "kevin-gilbert-wiffleball-prod": {
+      "hosting": {
+        "kevin-gilbert-wiffleball": [
+          "kevin-gilbert-wiffleball-prod"
+        ]
+      }
     }
+  },
+  "projects": {
+    "default": "kevin-gilbert-wiffleball-dev",
+    "production": "kevin-gilbert-wiffleball-prod"
   }
 }

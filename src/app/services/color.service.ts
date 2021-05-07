@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { DocumentSnapshot } from '@angular/fire/firestore';
 import { QuerySnapshot } from '@angular/fire/firestore';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, tap } from 'rxjs/operators';
 
@@ -9,11 +10,16 @@ import { map, tap } from 'rxjs/operators';
 })
 export class ColorService {
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(
+    private zone: NgZone,
+    private firestore: AngularFirestore
+  ) { }
 
   getColors() {
-    return this.firestore.collection<any>('data').doc<any>('static').get().pipe(
-      map((res: any) => res.data().colors)
-    );
+    return this.zone.runOutsideAngular(() => {
+      return this.firestore.collection<any>('data').doc<any>('static').get().pipe(
+        map((res: any) => res.data().colors)
+      );
+    });
   }
 }

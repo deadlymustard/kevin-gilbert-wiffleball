@@ -62,6 +62,33 @@
                   "maximumError": "4kb"
                 }
               ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
             }
           }
         },
@@ -73,6 +100,9 @@
           "configurations": {
             "production": {
               "browserTarget": "kevin-gilbert-wiffleball:build:production"
+            },
+            "dev": {
+              "browserTarget": "kevin-gilbert-wiffleball:build:dev"
             }
           }
         },
@@ -122,6 +152,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "kevin-gilbert-wiffleball:serve:production"
+            },
+            "dev": {
+              "devServerTarget": "kevin-gilbert-wiffleball:serve:dev"
             }
           }
         },
@@ -135,6 +168,7 @@
               "firebase",
               "@firebase/app",
               "@firebase/analytics",
+              "@firebase/auth",
               "@firebase/component",
               "@firebase/database",
               "@firebase/firestore",
@@ -158,6 +192,17 @@
               ],
               "sourceMap": false,
               "optimization": true
+            },
+            "dev": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
             }
           }
         },
@@ -171,6 +216,10 @@
             "production": {
               "browserTarget": "kevin-gilbert-wiffleball:build:production",
               "serverTarget": "kevin-gilbert-wiffleball:server:production"
+            },
+            "dev": {
+              "browserTarget": "kevin-gilbert-wiffleball:build:dev",
+              "serverTarget": "kevin-gilbert-wiffleball:server:dev"
             }
           }
         },
@@ -184,14 +233,39 @@
             ]
           },
           "configurations": {
-            "production": {}
+            "production": {},
+            "dev": {}
           }
         },
         "deploy": {
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "buildTarget": "kevin-gilbert-wiffleball:build:production",
+              "firebaseProject": "kevin-gilbert-wiffleball-prod"
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "buildTarget": "kevin-gilbert-wiffleball:build:dev",
+              "firebaseProject": "kevin-gilbert-wiffleball-dev"
+            }
+          },
           "builder": "@angular/fire:deploy",
           "options": {
             "functionsNodeVersion": 12,
-            "ssr": true
+            "ssr": true,
+            "buildTarget": "kevin-gilbert-wiffleball:build",
+            "firebaseProject": "kevin-gilbert-wiffleball"
           }
         }
       }
