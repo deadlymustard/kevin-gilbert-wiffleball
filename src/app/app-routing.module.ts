@@ -12,6 +12,7 @@ import { DonateComponent } from './pages/donate/donate.component';
 import { AboutComponent } from './pages/about/about.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: AboutComponent },
@@ -37,6 +38,8 @@ const routes: Routes = [
   },
   { path: 'bingo-night', component: BingoNightComponent },
   { path: 'tournaments', component: PastTournamentsComponent },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({

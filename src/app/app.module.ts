@@ -28,6 +28,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { ConfigurationService } from './services/configuration.service';
 import { WiffleBallTeamComponent } from './pages/wiffle-ball-team/wiffle-ball-team.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { WiffleBallTeamComponent } from './pages/wiffle-ball-team/wiffle-ball-te
     WiffleBallRulesComponent,
     WiffleBallRegisterComponent,
     PastTournamentsComponent,
-    WiffleBallTeamComponent
+    WiffleBallTeamComponent,
+    NotFoundComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

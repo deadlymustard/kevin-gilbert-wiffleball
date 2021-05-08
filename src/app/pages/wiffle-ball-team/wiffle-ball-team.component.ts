@@ -5,7 +5,7 @@ import { TeamService } from './../../services/team.service';
 import { PaymentUtils } from './../../utils/payment-utils';
 import { ItemizedPayment } from './../../interfaces/itemized-payment';
 import { Team } from './../../models/team.model';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ICreateOrderRequest, IOnApproveCallbackActions, IOnApproveCallbackData, IPayPalConfig } from 'ngx-paypal';
@@ -27,6 +27,7 @@ export class WiffleBallTeamComponent implements OnInit, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private teamService: TeamService,
     private singlePageService: SinglePageService,
     private firestore: AngularFirestore,
@@ -47,6 +48,8 @@ export class WiffleBallTeamComponent implements OnInit, AfterViewInit {
         if (this.team) {
           this.team.id = this.teamId;
           this.teamPaymentFee = PaymentUtils.calculateTeamPayment(this.team);
+        } else {
+          this.router.navigate(['/not-found']);
         }
       });
     })
