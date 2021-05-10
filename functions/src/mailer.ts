@@ -51,7 +51,7 @@ exports.markTeamAsPaid = functions.firestore
     if (teamHasPaid && teamCaptain) {
       const captainEmail = teamCaptain.email;
 
-      const basePrice = 125;
+      const basePrice = 100;
       const baseMembers = (updatedTeam.league === League.COMPETITIVE) ? 4 : 5;
       const baseFee = basePrice + ((updatedTeam.members.length % baseMembers) * 25);
       const transactionFee = ((baseFee) + baseFee * (.029) + .30)  * (.029) + .30;

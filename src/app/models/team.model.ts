@@ -6,7 +6,7 @@ export class Team {
     color: String = '';
     members: Member[] = [];
     league: League = League.COMPETITIVE;
-    registrationFee: Number = 125;
+    registrationFee: Number = 100;
     paid: boolean = false;
     year?: number;
   }

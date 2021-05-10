@@ -6,7 +6,7 @@ export class PaymentUtils {
   static BASE_MEMBERS_FRIENDLY = 5;
   static BASE_MEMBERS_COMPETITIVE = 4;
 
-  static BASE_FEE = 125;
+  static BASE_FEE = 100;
   static ADDITIONAL_MEMBERS_FEE = 25;
 
   static PAYPAL_PERCENTAGE_FEE = .029;
