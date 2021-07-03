@@ -18,7 +18,7 @@ Code should be built and deployed with Node 12. You may need to install nvm to m
 
 Run `firebase login` and login to the correct project.
 
-Run `firebase use <dev|production>` to switch to the environment you'd like to deploy to.
+Run `firebase use <kevin-gilbert-wiffleball-dev|production>` to switch to the environment you'd like to deploy to.
 
 Run `npm run dev:build:ssr` to build the site/server.
 

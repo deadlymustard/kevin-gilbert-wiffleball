@@ -47,13 +47,15 @@ exports.markTeamAsPaid = functions.firestore
     const teamHasPaid = (!change.before.data().paid && change.after.data().paid);
     const teamCaptain: Member | undefined = updatedTeam.members.find(member => member.isCaptain === true);
 
+    const BASE_PRICE = 120;
+    const ADDITIONAL_MEMBER_FEE = 30;
 
     if (teamHasPaid && teamCaptain) {
       const captainEmail = teamCaptain.email;
 
-      const basePrice = 100;
+      const basePrice = BASE_PRICE;
       const baseMembers = (updatedTeam.league === League.COMPETITIVE) ? 4 : 5;
-      const baseFee = basePrice + ((updatedTeam.members.length % baseMembers) * 25);
+      const baseFee = basePrice + ((updatedTeam.members.length % baseMembers) * ADDITIONAL_MEMBER_FEE);
       const transactionFee = ((baseFee) + baseFee * (.029) + .30)  * (.029) + .30;
       const totalPrice = (baseFee + transactionFee).toFixed(2);
 

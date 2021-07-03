@@ -39,8 +39,8 @@
         <div class="card-text">
           <markdown [data]="wiffleBallTeamPage?.payOnline?.body"></markdown>
         </div>
-        <span class="text-muted d-block">Team Fee: $100.00</span>
-        <span *ngIf="teamPaymentFee && teamPaymentFee.numberOfAdditionalMembers > 0" class="text-muted d-block">Additional Members ($25) x {{ teamPaymentFee?.numberOfAdditionalMembers }}: ${{25 * teamPaymentFee.numberOfAdditionalMembers }}</span>
+        <span class="text-muted d-block">Team Fee: ${{teamPaymentFee?.basePrice}}</span>
+        <span *ngIf="teamPaymentFee && teamPaymentFee.numberOfAdditionalMembers > 0" class="text-muted d-block">Additional Members (${{teamPaymentFee.pricePerAdditionalMember.toFixed(2)}}) x {{ teamPaymentFee?.numberOfAdditionalMembers }}: ${{teamPaymentFee.pricePerAdditionalMember * teamPaymentFee.numberOfAdditionalMembers }}</span>
         <span class="text-muted d-block">Transaction Fee: ${{teamPaymentFee?.transactionFee?.toFixed(2)}} +</span>
         <hr>
         <span class="text-muted d-block mb-5">Total: ${{teamPaymentFee?.netPrice?.toFixed(2) }}</span>
