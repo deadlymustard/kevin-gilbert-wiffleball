@@ -93,6 +93,10 @@ export class WiffleBallTeamComponent implements OnInit, AfterViewInit {
       onApprove: (data: IOnApproveCallbackData, actions: IOnApproveCallbackActions) => {
         this.team.paid = true;
         this.teamService.updateTeam(this.team);
+        return actions.order.capture().then((details: any) => {
+          // This function shows a transaction success message to your buyer.
+          alert('Purchase Completed By:  ' + details.payer.name.given_name);
+        });
       }
     }
   }

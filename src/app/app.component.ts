@@ -10,7 +10,9 @@ export class AppComponent implements OnInit {
   title = 'kevin-gilbert-wiffleball';
   details: any;
 
-  constructor() {}
+  constructor() {
+    console.log('hey');
+  }
 
   ngOnInit() {
   }

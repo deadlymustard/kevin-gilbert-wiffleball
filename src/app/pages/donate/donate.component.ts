@@ -50,6 +50,10 @@ export class DonateComponent {
 
   onApprove(data: any, actions: any) {
     this.donated = true;
+    return actions.order.capture().then((details: any) => {
+      // This function shows a transaction success message to your buyer.
+      alert('Purchase Completed By:  ' + details.payer.name.given_name);
+    });
   }
 
   shouldRenderButton(): boolean {
