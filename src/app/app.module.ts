@@ -1,4 +1,4 @@
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ColorService } from './services/color.service';
 import { DonateComponent } from './pages/donate/donate.component';
@@ -24,7 +24,7 @@ import { WiffleBallRegisterComponent } from './pages/wiffle-ball-register/wiffle
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PastTournamentsComponent } from './pages/past-tournaments/past-tournaments.component';
 import { NgxPayPalModule } from 'ngx-paypal';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { ConfigurationService } from './services/configuration.service';
 import { WiffleBallTeamComponent } from './pages/wiffle-ball-team/wiffle-ball-team.component';

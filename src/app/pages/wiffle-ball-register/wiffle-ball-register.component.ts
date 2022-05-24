@@ -1,5 +1,5 @@
 import { ColorService } from './../../services/color.service';
-import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
+import { AngularFirestore, CollectionReference } from '@angular/fire/compat/firestore';
 import { PaymentUtils } from './../../utils/payment-utils';
 import { ItemizedPayment } from './../../interfaces/itemized-payment';
 import { ConfigurationService } from './../../services/configuration.service';

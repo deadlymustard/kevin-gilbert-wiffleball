@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {AbstractControl, AsyncValidatorFn} from '@angular/forms';
 import {Observable} from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
-import {QueryDocumentSnapshot, QuerySnapshot} from "@angular/fire/firestore";
+import {QueryDocumentSnapshot, QuerySnapshot} from "@angular/fire/compat/firestore";
 import { Team } from '../models/team.model';
 import { TeamService } from '../services/team.service';
 

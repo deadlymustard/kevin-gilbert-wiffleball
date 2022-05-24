@@ -2,7 +2,7 @@ import { Team } from 'src/app/models/team.model';
 import { Injectable, NgZone } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { first, map, take } from 'rxjs/operators';
-import { AngularFirestore, CollectionReference, Query } from '@angular/fire/firestore';
+import { AngularFirestore, CollectionReference, Query } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'

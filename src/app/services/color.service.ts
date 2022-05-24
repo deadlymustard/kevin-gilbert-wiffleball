@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { DocumentSnapshot } from '@angular/fire/firestore';
-import { QuerySnapshot } from '@angular/fire/firestore';
+import { DocumentSnapshot } from '@angular/fire/compat/firestore';
+import { QuerySnapshot } from '@angular/fire/compat/firestore';
 import { Injectable, NgZone } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable({
