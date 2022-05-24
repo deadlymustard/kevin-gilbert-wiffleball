@@ -44,9 +44,9 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "0.1202.17",
+    "@angular-devkit/architect": "0.1303.6",
     "@angular-devkit/build-angular": "~13.3.6",
-    "@angular/cli": "~12.2.17",
+    "@angular/cli": "~13.3.6",
     "@angular/compiler-cli": "~13.3.9",
     "@nguniversal/builders": "^13.1.1",
     "@types/express": "^4.17.0",
